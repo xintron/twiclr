@@ -39,9 +39,10 @@ class EditHandler(urwid.Edit):
     def keypress(self, size, key):
         if key == 'enter':
             data = self._edit_text.split(None, 1)
-            cmd = data[0]
-            args = data[1].split() if len(data) > 1 else []
-            command_handler.parse_command(cmd, args)
+            if len(data) > 0:
+                cmd = data[0]
+                args = data[1].split() if len(data) > 1 else []
+                command_handler.parse_command(cmd, args)
             return 'esc'
         if key == 'tab':
             if len(self._edit_text.split()) == 1:
@@ -89,7 +90,7 @@ class MainHandler:
         else:
             msg = _['welcome_guest']
         self.body = urwid.SimpleListWalker([
-            urwid.Text('twiclr\nTerminal twitter client.', align='center'),
+            urwid.Text(u'twiclr\nTerminal twitter client.', align='center'),
             urwid.Text(msg, align='center')
         ])
 
